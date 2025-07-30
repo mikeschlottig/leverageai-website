@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & Analytics Services | LeverageAI</title>
+    <meta name="description" content="Unlock actionable insights with our enterprise-grade data & analytics engines, powered by Anaconda, Grafana, and Prometheus.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --text-primary: #1e3a8a;
+            --text-secondary: #6b7280;
+            --accent-primary: #2563eb;
+            --accent-secondary: #7c3aed;
+            --accent-cta: #10b981;
+            --border-color: #e5e7eb;
+        }
+        html[data-theme='dark'] {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #dbeafe;
+            --text-secondary: #9ca3af;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-cta: #10b981;
+            --border-color: #374151;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-secondary); transition: background-color 0.3s ease, color 0.3s ease; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--text-primary); }
+        .font-mono { font-family: 'Roboto Mono', monospace; }
+        .bg-primary { background-color: var(--bg-primary); }
+        .bg-secondary { background-color: var(--bg-secondary); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .accent-primary { color: var(--accent-primary); }
+        .accent-secondary { color: var(--accent-secondary); }
+        
+        /* Theme Switch */
+        .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 26px; }
+        .slider:before { background-color: #fff; bottom: 3px; content: ""; height: 20px; left: 3px; position: absolute; transition: .4s; width: 20px; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent-primary); }
+        input:checked + .slider:before { transform: translateX(24px); }
+        
+        /* Dropdown Navigation */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--bg-primary); min-width: 250px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 8px; border: 1px solid var(--border-color); }
+        .dropdown-content a { color: var(--text-secondary); padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s; }
+        .dropdown-content a:hover { background-color: var(--bg-secondary); color: var(--accent-primary); }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-btn { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .dropdown-btn:hover { background-color: var(--bg-secondary); }
+        
+        /* Contact Form Styles */
+        .contact-form { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: none; }
+        .contact-form.show { display: block; }
+        .contact-form-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); margin-bottom: 16px; }
+        .contact-form button { background: var(--accent-cta); color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        .contact-form button:hover { opacity: 0.9; }
+        .contact-trigger { background: var(--accent-cta); color: white; padding: 12px 24px; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .contact-trigger:hover { transform: translateY(-2px); }
+        
+        /* Go Corner Card Styles */
+        .card-go { background: var(--bg-primary); position: relative; display: block; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); transition: transform .3s ease, box-shadow .3s ease; overflow: hidden; border: 1px solid var(--border-color); }
+        .card-go:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+        .card-go-title { color: var(--text-primary); font-size: 1.25rem; font-weight: bold; }
+        .card-go p { color: var(--text-secondary); margin-top: 0.5rem; }
+        .go-corner { display: flex; align-items: center; justify-content: center; position: absolute; width: 3rem; height: 3rem; overflow: hidden; top: 0; right: 0; background-color: var(--accent-primary); border-radius: 0 4px 0 32px; }
+        .go-arrow { margin-top: -4px; margin-right: -4px; color: white; font-family: courier, monospace; font-size: 2rem; }
+        .card-go:hover .go-corner { background-color: var(--accent-cta); }
+    </style>
+</head>
+<body class="bg-primary">
+
+    <!-- Header -->
+    <header class="bg-primary/80 backdrop-blur-md sticky top-0 z-50 border-b" style="border-color: var(--border-color);">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-black text-primary">
+                <a href="index.html">LEVERAGE<span class="accent-primary">AI</span></a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="data-analytics.html" class="accent-primary font-bold">Services</a>
+                <a href="#industries" class="text-secondary hover:accent-primary transition-colors">Industries</a>
+                <a href="workshops.html" class="text-secondary hover:accent-primary transition-colors">Workshops</a>
+                <a href="#contact" class="text-secondary hover:accent-primary transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                    </label>
+                </div>
+                
+                <!-- Pages Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        Pages <span>▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <a href="data-analytics.html">Data & Analytics Services</a>
+                        <a href="ai-communications.html">AI Phone & Chatbots</a>
+                        <a href="ai-sales-marketing.html">AI Sales & Marketing</a>
+                        <a href="voip-service.html">VoIP Phone Service</a>
+                        <a href="ai-avatars.html">Custom AI Avatars</a>
+                        <a href="cybersecurity.html">AI & Cybersecurity</a>
+                        <a href="infrastructure.html">Secure AI Infrastructure</a>
+                        <a href="seo-services.html">Technical SEO Services</a>
+                        <a href="workshops.html">In-Office AI Workshops</a>
+                    </div>
+                </div>
+                
+                <a href="#contact" class="hidden sm:inline-block bg-primary-blue text-white font-semibold px-5 py-2 rounded-lg hover:bg-navy-blue transition-colors shadow-md" style="background-color: var(--accent-primary);">
+                    Get Consultation
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Inner Page Hero -->
+        <section class="bg-secondary py-20">
+            <div class="container mx-auto px-6 text-center">
+                <p class="font-mono accent-primary">Our Core Expertise</p>
+                <h1 class="text-4xl md:text-6xl font-black mt-2 text-primary">Data & Analytics Services</h1>
+                <p class="mt-4 text-lg md:text-xl text-secondary max-w-3xl mx-auto">
+                    We transform your raw data into your most valuable asset. Our solutions provide clarity, drive efficiency, and uncover opportunities you never knew existed.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Key Capabilities Section -->
+        <section class="py-20 md:py-24 bg-primary">
+            <div class="container mx-auto px-6">
+                 <div class="grid md:grid-cols-3 gap-12 text-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-primary">Real-time Dashboards</h3>
+                        <p class="mt-2 text-secondary">Monitor your operations live with custom Grafana dashboards that visualize the metrics that matter most to your business.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-primary">Predictive AI Models</h3>
+                        <p class="mt-2 text-secondary">Using the Anaconda stack, we build and deploy machine learning models to forecast trends, score leads, and mitigate risks.</p>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold text-primary">Secure Infrastructure</h3>
+                        <p class="mt-2 text-secondary">Your data's security is paramount. We implement robust, compliant data pipelines with enterprise-grade monitoring and governance.</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Featured Platforms Section -->
+        <section class="py-20 md:py-24 bg-secondary">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-black text-primary">Built with Best-in-Class Tools</h2>
+                    <p class="mt-4 text-lg text-secondary">
+                        We don't reinvent the wheel; we master the best tools on the market to deliver robust, scalable, and maintainable solutions for you.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Platform Card -->
+                    <div class="card-go">
+                        <h4 class="card-go-title">Anaconda Platform</h4>
+                        <p>The foundation of our data science and ML workflows, ensuring reproducibility, security, and access to thousands of vetted packages.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                    <!-- Platform Card -->
+                     <div class="card-go">
+                        <h4 class="card-go-title">Grafana & Prometheus</h4>
+                        <p>The industry-standard duo for real-time metrics collection and stunning, interactive dashboard visualizations.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                     <!-- Platform Card -->
+                     <div class="card-go">
+                        <h4 class="card-go-title">6sense & Agency Analytics</h4>
+                        <p>Powering our revenue intelligence and client-facing reporting to provide clear, actionable business insights.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                     <!-- Platform Card -->
+                     <div class="card-go">
+                        <h4 class="card-go-title">Better Stack & Practicus AI</h4>
+                        <p>For comprehensive infrastructure monitoring, incident management, and AI-powered business intelligence exploration.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                     <!-- Platform Card -->
+                     <div class="card-go">
+                        <h4 class="card-go-title">Supabase</h4>
+                        <p>Our choice for a scalable, secure, and cost-effective database backend with powerful real-time capabilities.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                     <!-- Platform Card -->
+                     <div class="card-go">
+                        <h4 class="card-go-title">Custom Engine (In Dev)</h4>
+                        <p>Our next-generation proprietary platform, combining the best features of these tools into a unified, seamless experience.</p>
+                        <div class="go-corner"><div class="go-arrow">→</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Case Section with globe -->
+        <section class="py-20 md:py-24 bg-primary">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                     <h2 class="text-3xl md:text-4xl font-black text-primary">Global Insights, Local Impact</h2>
+                     <p class="mt-4 text-lg text-secondary">Our analytics engines can process data from across your global operations to provide hyper-specific, actionable insights that improve local performance, from a single retail store to an entire supply chain.</p>
+                     <p class="mt-4 text-secondary">This globe represents the interconnectedness of data in the modern enterprise.</p>
+                </div>
+                <!-- Placeholder for the rotating globe animation -->
+                <div class="flex justify-center items-center h-64 border rounded-lg" style="border-color: var(--border-color);">
+                    <p class="text-secondary">[Rotating Globe Animation Would Go Here]</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" style="background-color: var(--navy-blue);" class="text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <h2 class="text-3xl font-black text-white">Ready to Unlock Your Data's Potential?</h2>
+            <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">Let's build your analytics engine. Your initial consultation is free.</p>
+            <div class="mt-8">
+                 <a href="mailto:leverage_labs_alpha@proton.me" class="inline-block text-white font-bold text-lg px-10 py-4 rounded-lg shadow-lg hover:scale-105 transition-all transform" style="background-color: var(--accent-cta);">
+                    Book Your Data Strategy Session
+                </a>
+                <p class="mt-4 text-gray-400">Or call us at: <a href="tel:541-450-2082" class="font-bold hover:text-white">(541) 450-2082</a></p>
+            </div>
+            <div class="mt-16 pt-8 border-t border-blue-800 text-sm text-gray-400">
+                <p>© 2024 LeverageAI LLC. All Rights Reserved. Lever Up.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Form -->
+    <div id="contactForm" class="contact-form">
+        <div id="contactTrigger" class="contact-trigger" onclick="toggleContactForm()">
+            💬 Quick Contact
+        </div>
+        <div id="contactCard" class="contact-form-card" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0; color: var(--text-primary);">Quick Contact</h3>
+                <button onclick="closeContactForm()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-secondary);">×</button>
+            </div>
+            <form onsubmit="submitContactForm(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="tel" placeholder="Your Phone">
+                <textarea placeholder="What can LeverageAI do for you?" rows="3" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme switcher
+            const themeToggle = document.getElementById('checkbox');
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                if (currentTheme === 'dark') { themeToggle.checked = true; }
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            }
+            themeToggle.addEventListener('change', function(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Contact form scroll trigger
+            const contactForm = document.getElementById('contactForm');
+            const handleScroll = () => {
+                const footer = document.getElementById('contact');
+                if (footer) {
+                    const footerRect = footer.getBoundingClientRect();
+                    const isFooterVisible = footerRect.top <= window.innerHeight && footerRect.bottom >= 0;
+                    contactForm.classList.toggle('show', isFooterVisible);
+                }
+            };
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        function toggleContactForm() {
+            const trigger = document.getElementById('contactTrigger');
+            const card = document.getElementById('contactCard');
+            trigger.style.display = 'none';
+            card.style.display = 'block';
+        }
+
+        function closeContactForm() {
+            const trigger = document.getElementById('contactTrigger');
+            const card = document.getElementById('contactCard');
+            trigger.style.display = 'flex';
+            card.style.display = 'none';
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            alert('Thank you! We\'ll get back to you within 24 hours.');
+            closeContactForm();
+        }
+    </script>
+</body>
+</html>
